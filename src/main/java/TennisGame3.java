@@ -3,25 +3,56 @@ public class TennisGame3 implements TennisGame {
     
     private int scorePlayer2;
     private int scorePlayer1;
-    private String p1N;
-    private String p2N;
+    private final String player1Name;
+    private final String player2Name;
 
-    public TennisGame3(String p1N, String p2N) {
-        this.p1N = p1N;
-        this.p2N = p2N;
+    public TennisGame3(String player1Name, String player2Name) {
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
     }
 
     public String getScore() {
         String score;
-        if (scorePlayer1 < 4 && scorePlayer2 < 4 && !(scorePlayer1 + scorePlayer2 == 6)) {
-            String[] arrayScoreMessages = {"Love", "Fifteen", "Thirty", "Forty"};
-            score = arrayScoreMessages[scorePlayer1];
-            return (scorePlayer1 == scorePlayer2) ? score + "-All" : score + "-" + arrayScoreMessages[scorePlayer2];
-        }
+        String score1 = validateScorePlayersFirstCase();
+        String score11 = validateScorePlayersSecondCase(score1);
+        if (score11 != null) return score11;
+        score = scorePlayer1 > scorePlayer2 ? player1Name : player2Name;
+        return getFinalMessageScoresEqual(score);
+    }
+
+    private String validateScorePlayersSecondCase(String score1) {
+        if (score1 != null) return score1;
         if (scorePlayer1 == scorePlayer2)
             return "Deuce";
-        score = scorePlayer1 > scorePlayer2 ? p1N : p2N;
-        return ((scorePlayer1 - scorePlayer2)*(scorePlayer1 - scorePlayer2) == 1) ? "Advantage " + score : "Win for " + score;
+        return null;
+    }
+
+    private String validateScorePlayersFirstCase() {
+        String score;
+        if (validateScoreLessFourAndSumSix()) {
+            String[] arrayScoreMessages = {"Love", "Fifteen", "Thirty", "Forty"};
+            score = arrayScoreMessages[scorePlayer1];
+            return getFinalMessage(score, arrayScoreMessages);
+        }
+        return null;
+    }
+
+    private String getFinalMessageScoresEqual(String score) {
+        if(Math.pow((scorePlayer1 - scorePlayer2),2) == 1) {
+            return "Advantage " + score;
+        }
+        return  "Win for " + score;
+    }
+
+    private String getFinalMessage(String score, String[] arrayScoreMessages) {
+        if(scorePlayer1 == scorePlayer2){
+            return score + "-All";
+        }
+        return score + "-" + arrayScoreMessages[scorePlayer2];
+    }
+
+    private boolean validateScoreLessFourAndSumSix() {
+        return scorePlayer1 < 4 && scorePlayer2 < 4 && !(scorePlayer1 + scorePlayer2 == 6);
     }
 
     public void wonPoint(String playerName) {
