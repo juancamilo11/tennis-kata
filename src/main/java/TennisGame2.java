@@ -3,14 +3,12 @@ public class TennisGame2 implements TennisGame {
     public int player1Score = 0;
     public int player2Score = 0;
     
-    public String p1Response = "";
-    public String p2Response = "";
-    private String player1Name;
-    private String player2Name;
+    private String p1Response = "";
+    private String p2Response = "";
+    private final String player1Name;
 
-    public TennisGame2(String player1Name, String player2Name) {
+    public TennisGame2(String player1Name) {
         this.player1Name = player1Name;
-        this.player2Name = player2Name;
     }
 
     public String getScore(){
@@ -54,7 +52,6 @@ public class TennisGame2 implements TennisGame {
         if (player1Score > player2Score && player2Score >= 3) {
             score = "Advantage player1";
         }
-
         if (player1Score >=4 && player2Score >=0 && (player1Score - player2Score)>=2) {
             score = "Win for player1";
         }
@@ -62,64 +59,86 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String getMessagePlayer2GreaterPlayer1LowerFour(String score) {
-        if (player2Score > player1Score && player2Score < 4)
-        {
-            if (player2Score ==2)
-                p2Response ="Thirty";
-            if (player2Score ==3)
-                p2Response ="Forty";
-            if (player1Score ==1)
-                p1Response ="Fifteen";
-            if (player1Score ==2)
-                p1Response ="Thirty";
-            score = p1Response + "-" + p2Response;
+        if (player2Score > player1Score && player2Score < 4) {
+            score = pickMessagePlayer2GreaterPlayer1LowerFour();
         }
         return score;
     }
 
+    private String pickMessagePlayer2GreaterPlayer1LowerFour() {
+        String score;
+        if (player2Score ==2)
+            p2Response ="Thirty";
+        if (player2Score ==3)
+            p2Response ="Forty";
+        if (player1Score ==1)
+            p1Response ="Fifteen";
+        if (player1Score ==2)
+            p1Response ="Thirty";
+        score = p1Response + "-" + p2Response;
+        return score;
+    }
+
     private String getMessagePlayer1GreaterPlayer2LowerFour(String score) {
-        if (player1Score > player2Score && player1Score < 4)
-        {
-            if (player1Score ==2)
-                p1Response ="Thirty";
-            if (player1Score ==3)
-                p1Response ="Forty";
-            if (player2Score ==1)
-                p2Response ="Fifteen";
-            if (player2Score ==2)
-                p2Response ="Thirty";
-            score = p1Response + "-" + p2Response;
+        if (player1Score > player2Score && player1Score < 4) {
+            score = pickMessagePlayer1GreaterPlayer2LowerFour();
         }
+        return score;
+    }
+
+    private String pickMessagePlayer1GreaterPlayer2LowerFour() {
+        String score;
+        if (player1Score ==2)
+            p1Response ="Thirty";
+        if (player1Score ==3)
+            p1Response ="Forty";
+        if (player2Score ==1)
+            p2Response ="Fifteen";
+        if (player2Score ==2)
+            p2Response ="Thirty";
+        score = p1Response + "-" + p2Response;
         return score;
     }
 
     private String getMessagePlayer1EqualCero(String score) {
         if (player2Score > 0 && player1Score ==0) {
-            if (player2Score ==1)
-                p2Response = "Fifteen";
-            if (player2Score ==2)
-                p2Response = "Thirty";
-            if (player2Score ==3)
-                p2Response = "Forty";
-
-            p1Response = "Love";
-            score = p1Response + "-" + p2Response;
+            score = pickMessagePlayer1EqualCero();
         }
+        return score;
+    }
+
+    private String pickMessagePlayer1EqualCero() {
+        String score;
+        if (player2Score ==1)
+            p2Response = "Fifteen";
+        if (player2Score ==2)
+            p2Response = "Thirty";
+        if (player2Score ==3)
+            p2Response = "Forty";
+
+        p1Response = "Love";
+        score = p1Response + "-" + p2Response;
         return score;
     }
 
     private String getMessagePlayer2EqualCero(String score) {
         if (player1Score > 0 && player2Score ==0) {
-            if (player1Score ==1)
-                p1Response = "Fifteen";
-            if (player1Score ==2)
-                p1Response = "Thirty";
-            if (player1Score ==3)
-                p1Response = "Forty";
-            
-            p2Response = "Love";
-            score = p1Response + "-" + p2Response;
+            score = pickMessagePlayer2EqualCero();
         }
+        return score;
+    }
+
+    private String pickMessagePlayer2EqualCero() {
+        String score;
+        if (player1Score ==1)
+            p1Response = "Fifteen";
+        if (player1Score ==2)
+            p1Response = "Thirty";
+        if (player1Score ==3)
+            p1Response = "Forty";
+
+        p2Response = "Love";
+        score = p1Response + "-" + p2Response;
         return score;
     }
 
