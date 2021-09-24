@@ -1,14 +1,16 @@
 
 public class TennisGame2 implements TennisGame {
-    public int player1Score = 0;
-    public int player2Score = 0;
+    private int player1Score = 0;
+    private int player2Score = 0;
     
-    private String p1Response = "";
-    private String p2Response = "";
+    private String player1Response = "";
+    private String player2Response = "";
     private final String player1Name;
+    private final String player2Name;
 
-    public TennisGame2(String player1Name) {
+    public TennisGame2(String player1Name, String player2Name) {
         this.player1Name = player1Name;
+        this.player2Name = player2Name;
     }
 
     public String getScore(){
@@ -33,7 +35,6 @@ public class TennisGame2 implements TennisGame {
 
     private String getMessagePlayerOtherConditions(String score) {
         score = getMessageAdventageOrWinPlayer1(score);
-
         score = getMessageAdventageOrWinPlayer2(score);
         return score;
     }
@@ -68,14 +69,14 @@ public class TennisGame2 implements TennisGame {
     private String pickMessagePlayer2GreaterPlayer1LowerFour() {
         String score;
         if (player2Score ==2)
-            p2Response ="Thirty";
+            player2Response ="Thirty";
         if (player2Score ==3)
-            p2Response ="Forty";
+            player2Response ="Forty";
         if (player1Score ==1)
-            p1Response ="Fifteen";
+            player1Response ="Fifteen";
         if (player1Score ==2)
-            p1Response ="Thirty";
-        score = p1Response + "-" + p2Response;
+            player1Response ="Thirty";
+        score = player1Response + "-" + player2Response;
         return score;
     }
 
@@ -89,14 +90,14 @@ public class TennisGame2 implements TennisGame {
     private String pickMessagePlayer1GreaterPlayer2LowerFour() {
         String score;
         if (player1Score ==2)
-            p1Response ="Thirty";
+            player1Response ="Thirty";
         if (player1Score ==3)
-            p1Response ="Forty";
+            player1Response ="Forty";
         if (player2Score ==1)
-            p2Response ="Fifteen";
+            player2Response ="Fifteen";
         if (player2Score ==2)
-            p2Response ="Thirty";
-        score = p1Response + "-" + p2Response;
+            player2Response ="Thirty";
+        score = player1Response + "-" + player2Response;
         return score;
     }
 
@@ -110,14 +111,13 @@ public class TennisGame2 implements TennisGame {
     private String pickMessagePlayer1EqualCero() {
         String score;
         if (player2Score ==1)
-            p2Response = "Fifteen";
+            player2Response = "Fifteen";
         if (player2Score ==2)
-            p2Response = "Thirty";
+            player2Response = "Thirty";
         if (player2Score ==3)
-            p2Response = "Forty";
-
-        p1Response = "Love";
-        score = p1Response + "-" + p2Response;
+            player2Response = "Forty";
+        player1Response = "Love";
+        score = player1Response + "-" + player2Response;
         return score;
     }
 
@@ -131,14 +131,14 @@ public class TennisGame2 implements TennisGame {
     private String pickMessagePlayer2EqualCero() {
         String score;
         if (player1Score ==1)
-            p1Response = "Fifteen";
+            player1Response = "Fifteen";
         if (player1Score ==2)
-            p1Response = "Thirty";
+            player1Response = "Thirty";
         if (player1Score ==3)
-            p1Response = "Forty";
+            player1Response = "Forty";
 
-        p2Response = "Love";
-        score = p1Response + "-" + p2Response;
+        player2Response = "Love";
+        score = player1Response + "-" + player2Response;
         return score;
     }
 
@@ -171,7 +171,7 @@ public class TennisGame2 implements TennisGame {
     public void wonPoint(String player) {
         if (player.equals(player1Name))
             addAPointToPlayer1();
-        else
+        if(player.equals(player2Name))
             addAPointToPlayer2();
     }
 }
