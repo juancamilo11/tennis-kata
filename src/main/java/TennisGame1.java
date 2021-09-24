@@ -1,8 +1,8 @@
 
 public class TennisGame1 implements TennisGame {
     
-    private int mScore1 = 0;
-    private int mScore2 = 0;
+    private int scorePlayer1 = 0;
+    private int scorePlayer2 = 0;
     private String player1Name;
     private String player2Name;
 
@@ -13,60 +13,75 @@ public class TennisGame1 implements TennisGame {
 
     public void wonPoint(String playerName) {
         if (playerName.equals(player1Name))
-            mScore1 += 1;
+            scorePlayer1 += 1;
         else
-            mScore2 += 1;
+            scorePlayer2 += 1;
     }
 
     public String getScore() {
         StringBuilder score = new StringBuilder();
-        int tempScore=0;
-        if (mScore1 == mScore2)
-        {
+        int tempScore;
+        if (scorePlayer1 == scorePlayer2) {
             getMessageScoreEqual(score);
+            return score.toString();
         }
-        else if (mScore1 >=4 || mScore2 >=4)
-        {
+        if (scorePlayer1 >=4 || scorePlayer2 >=4) {
             getMessageScoreGreaterFour(score);
+            return score.toString();
         }
-        else
-        {
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = mScore1;
-                else {
-                    score.append("-");
-                    tempScore = mScore2;}
-                switch(tempScore)
-                {
-                    case 0:
-                        score.append("Love");
-                        break;
-                    case 1:
-                        score.append("Fifteen");
-                        break;
-                    case 2:
-                        score.append("Thirty");
-                        break;
-                    case 3:
-                        score.append("Forty");
-                        break;
-                }
-            }
-        }
+        getDefaultMessage(score);
         return score.toString();
     }
 
+    private void getDefaultMessage(StringBuilder score) {
+        int tempScore;
+        for (int i = 1; i<3; i++)
+        {
+            if (i==1) tempScore = scorePlayer1;
+            else {
+                score.append("-");
+                tempScore = scorePlayer2;}
+            getDefaultMessage(score, tempScore);
+        }
+    }
+
+    private void getDefaultMessage(StringBuilder score, int tempScore) {
+        switch(tempScore)
+        {
+            case 0:
+                score.append("Love");
+                break;
+            case 1:
+                score.append("Fifteen");
+                break;
+            case 2:
+                score.append("Thirty");
+                break;
+            default:
+                score.append("Forty");
+                break;
+        }
+    }
+
     private void getMessageScoreGreaterFour(StringBuilder score) {
-        int minusResult = mScore1 - mScore2;
-        if (minusResult==1) score.append("Advantage " + player1Name);
-        else if (minusResult ==-1) score.append( "Advantage " + player2Name);
-        else if (minusResult>=2) score.append("Win for " + player1Name);
-        else score.append("Win for " + player2Name);
+        int minusResult = scorePlayer1 - scorePlayer2;
+        if (minusResult==1) {
+            score.append("Advantage " + player1Name);
+            return;
+        }
+        if (minusResult ==-1) {
+            score.append("Advantage " + player2Name);
+            return;
+        }
+        if (minusResult>=2) {
+            score.append("Win for " + player1Name);
+            return;
+        }
+        score.append("Win for " + player2Name);
     }
 
     private void getMessageScoreEqual(StringBuilder score) {
-        switch (mScore1)
+        switch (scorePlayer1)
         {
             case 0:
                 score.append("Love-All");
