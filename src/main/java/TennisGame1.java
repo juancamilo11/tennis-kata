@@ -1,14 +1,15 @@
+import score.TennisScore;
 
 public class TennisGame1 implements TennisGame {
     
-    private int scorePlayer1 = 0;
-    private int scorePlayer2 = 0;
-    private String player1Name;
-    private String player2Name;
+   private TennisScore tennisScore;
+    private final String player1Name;
+    private final String player2Name;
 
     public TennisGame1(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
+        this.tennisScore = new TennisScore();
     }
 
     public void wonPoint(String playerName) {
@@ -20,7 +21,6 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         StringBuilder score = new StringBuilder();
-        int tempScore;
         if (scorePlayer1 == scorePlayer2) {
             getMessageScoreEqual(score);
             return score.toString();
