@@ -125,29 +125,20 @@ public class TennisGame2 implements TennisGame {
 
     private String getMessageLowerFourEqual(String score) {
         if (player1Score == player2Score && player1Score < 4) {
-            if (player1Score ==0)
-                score = "Love";
-            if (player1Score ==1)
-                score = "Fifteen";
-            if (player1Score ==2)
-                score = "Thirty";
-            score += "-All";
+            score = pickMessageLowerFourEqual(score);
         }
         return score;
     }
 
-    public void SetP1Score(int number){
-        for (int i = 0; i < number; i++) {
-            addAPointToPlayer1();
-        }
-            
-    }
-    
-    public void SetP2Score(int number){
-        
-        for (int i = 0; i < number; i++) {
-            addAPointToPlayer2();
-        }
+    private String pickMessageLowerFourEqual(String score) {
+        if (player1Score ==0)
+            score = "Love";
+        if (player1Score ==1)
+            score = "Fifteen";
+        if (player1Score ==2)
+            score = "Thirty";
+        score += "-All";
+        return score;
     }
     
     public void addAPointToPlayer1(){
@@ -159,7 +150,7 @@ public class TennisGame2 implements TennisGame {
     }
 
     public void wonPoint(String player) {
-        if (player == player1Name)
+        if (player.equals(player1Name))
             addAPointToPlayer1();
         else
             addAPointToPlayer2();
